@@ -1,0 +1,62 @@
+1.)
+db.menu.aggregate([{$sort: {name: 1}}])
+
+2.)
+db.menu.aggregate([{$sort: {name: 1}}, {$limit: 3}])
+
+3.)
+db.menu.aggregate([{$sort: {name: 1}}, {$skip: 3}, {$limit: 3}])
+
+4.)
+db.menu.aggregate([{$sort: {name: 1}}, {$project: {name: 1, _id: 0}}])
+
+5.)
+db.menu.aggregate([{$match: {price: {$gt: 3}}}])
+
+6.)
+db.menu.aggregate([{$match: {type: "Espresso"}}])
+
+7.)
+db.menu.aggregate([{$match: {type: "Espresso"}}, {$sort: {price: -1}}])
+
+8.)
+db.menu.aggregate([{$group: {
+	_id: null,
+	price: {$min: "$price"} 	
+	}}
+])
+
+9.)
+db.menu.aggregate([{$group: {
+	_id: null,
+	price: {$avg: "$price"} 	
+	}}
+])
+
+10.)
+db.menu.aggregate([{$group: {
+	_id: "$type",
+	averagePrice: {$avg: "$price"} 	
+	}}
+])
+
+11.)
+db.menu.aggregate([{$group: {
+	_id: "$type",
+	topPrice: {$max: "$price"} 	
+	}}
+])
+
+12.)
+db.menu.aggregate([{$group: {
+	_id: "$type",
+	averagePrice: {$avg: "$price"} 	
+	}},
+	{$project: {averagePrice: 1,
+	_id: 0,
+	type: "$_id"
+	}}
+])
+
+13.)
+db.menu.aggregate([{$sort: {price: -1}}, {$limit: 2}])
